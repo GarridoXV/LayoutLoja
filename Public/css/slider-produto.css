@@ -1,0 +1,96 @@
+.product-slider {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin: 20px auto;
+    max-width: 1200px; /* Controla a largura máxima do slider */
+    overflow: hidden; /* Impede que itens fora do slider sejam exibidos */
+  }
+  
+  .product-grid {
+    display: flex;
+    transition: transform 0.3s ease; /* Suaviza a transição da rolagem */
+    will-change: transform; /* Otimiza a animação de rolagem */
+  }
+  
+  .product-item {
+    flex: 0 0 calc(25% - 54px); /* Ajusta para que quatro itens caibam no container */
+    margin: 6px; /* Margem reduzida para ajustar o espaçamento */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ddd;
+  }
+  
+  .product-item img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain; /* Garante que a imagem se ajuste sem ser cortada */
+    margin-bottom: 15px;
+  }
+  
+  .cart-btn {
+    background-color: #5C8DAD; /* Cor de fundo do botão */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cart-btn:hover {
+    background-color: #42768A; /* Cor de fundo do botão ao passar o mouse */
+  }
+  
+  /* Botões de navegação (setas) */
+  .slider-btn {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #fff; /* Cor de fundo das setas */
+    color: #000; /* Cor das setas */
+    border: none;
+    padding: 10px;
+    z-index: 10;
+    font-size: 24px;
+  }
+  
+  .seta-esquerda {
+    left: 0;
+  }
+  
+  .seta-direita {
+    right: 0;
+  }
+  
+  @media (max-width: 1024px) {
+    .product-item {
+      flex: 0 0 calc(33.333% - 10px); /* Três itens por linha */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .product-item {
+      flex: 0 0 calc(50% - 10px); /* Dois itens por linha */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .product-item {
+      flex: 0 0 calc(100% - 10px); /* Um item por linha */
+    }
+  
+    .slider-btn {
+      display: none; /* Esconde as setas em telas pequenas */
+    }
+  }
+  

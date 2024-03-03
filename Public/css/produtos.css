@@ -1,0 +1,72 @@
+/* Estilos principais para a grade de produtos */
+.grade-de-produtos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Cria quatro colunas */
+    gap: 16px; /* Espaçamento entre os produtos */
+    padding: 16px;
+  }
+  
+  /* Estilos para cada cartão de produto */
+  .cartao-de-produto {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    border: 1px solid #e1e1e1;
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Estilos para as imagens dos produtos */
+  .cartao-de-produto .imagem-do-produto {
+    width: 100%;
+    object-fit: contain; /* Garante que a imagem não distorça */
+  }
+  
+  /* Estilos para o título do produto */
+  .cartao-de-produto .titulo-do-produto {
+    font-size: 16px;
+    color: #333;
+    margin: 10px 0;
+  }
+  
+  /* Estilos para o preço do produto */
+  .cartao-de-produto .preco-do-produto {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  /* Estilos para o botão de adicionar ao carrinho */
+  .cartao-de-produto .botao-adicionar-carrinho {
+    background-color: #ffd700;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-top: auto;
+  }
+  
+  .cartao-de-produto .botao-adicionar-carrinho:hover {
+    background-color: #e0c040;
+  }
+  
+  /* Estilos responsivos para ajustar a grade conforme o tamanho da tela */
+  @media (max-width: 1024px) {
+    .grade-de-produtos {
+      grid-template-columns: repeat(3, 1fr); /* 3 colunas para telas menores */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .grade-de-produtos {
+      grid-template-columns: repeat(2, 1fr); /* 2 colunas para telas ainda menores */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .grade-de-produtos {
+      grid-template-columns: 1fr; /* 1 coluna para telas pequenas */
+    }
+  }
+  

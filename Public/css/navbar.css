@@ -1,0 +1,384 @@
+.navbar {
+    background: #000000; /* Preto profundo para um estilo Black Piano */
+    background: linear-gradient(165deg, rgba(0, 0, 0, 0.95) 50%, rgba(34, 34, 34, 0.95) 100%);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.logo {
+    font-family: 'Great Vibes', cursive;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li {
+    padding: 0 20px;
+}
+
+.nav-links li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: #ddd;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+}
+
+.search-box input {
+    border: 1px solid white; /* Borda mais fina */
+    padding: 5px 10px;
+    background: transparent;
+    color: white;
+}
+
+.search-box i {
+    color: white;
+    padding-left: 10px;
+}
+
+.icons {
+    color: white;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+}
+
+.icons i {
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger .bar {
+    background-color: white;
+    height: 3px;
+    width: 25px;
+    margin: 3px 0;
+    transition: 0.3s;
+}
+
+/* Estilos para o modo responsivo */
+@media (max-width: 768px) {
+    .nav-links {
+        position: fixed;
+        right: 0;
+        height: 100vh;
+        top: 0;
+        background: #333; /* Estilo Black Piano */
+        flex-direction: column;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        padding-top: 60px;
+        width: 50%;
+        text-align: left;
+    }
+
+    .nav-links.active {
+        transform: translateX(0);
+    }
+
+    .nav-links li {
+        padding: 15px 20px;
+    }
+
+    .nav-links li a {
+        font-size: 20px;
+        display: block;
+    }
+
+    .search-box,
+    .icons {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+}
+
+/* Animação do Hamburger para 'X' */
+.open .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.open .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.open .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+/* Modal */
+/* Estilos do Modal */
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1000; /* Valor alto para ficar acima de outros elementos */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); /* Fundo escuro semi-transparente */
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* Largura relativa */
+    max-width: 450px; /* Largura máxima */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+    border-radius: 5px; /* Bordas arredondadas */
+  }
+  
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  /* Estilos dos Formulários */
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="tel"],
+  select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    background-color: #000000;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #000000;
+  }
+  
+  .link-cadastro,
+  .link-login {
+    text-align: center;
+    margin-top: 12px;
+  }
+  
+  .link-cadastro span,
+  .link-login span {
+    color: #0645ad;
+    cursor: pointer;
+  }
+  
+  .btn-login {
+    background-color: black; /* Black Piano Color */
+  }
+  
+  /* Responsividade */
+  @media screen and (max-width: 768px) {
+    .modal-content {
+      width: 90%;
+    }
+  }
+  @keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+  }
+  /* Estilos gerais do modal */
+.modal, .modal-carrinho {
+  display: none; /* Mantém o modal escondido inicialmente */
+  position: fixed; /* Posição fixa na tela */
+  z-index: 1; /* Garante que fique sobre outros elementos */
+  left: 0;
+  top: 0;
+  width: 100%; /* Largura total da tela */
+  height: 100%; /* Altura total da tela */
+  overflow: auto; /* Permite rolagem se o conteúdo for muito grande */
+  background-color: rgb(0,0,0); /* Fundo preto */
+  background-color: rgba(0,0,0,0.4); /* Transparência no fundo */
+}
+
+/* Estilos do conteúdo interno do modal */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* Centraliza na tela com margem superior */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%; /* Largura do conteúdo do modal */
+}
+
+/* Estilo do botão de fechar (x) */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* Estilos para o botão de fechar ao passar o mouse */
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Estilos específicos para o modal do carrinho */
+
+.modal, .modal-carrinho {
+  display: none; 
+  position: fixed;
+  z-index: 1000; /* Ajuste conforme necessário para ficar acima de outros elementos */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content, .modal-carrinho .modal-content {
+  background-color: #fefefe;
+  margin: 5% auto; /* Centralizar o modal na tela */
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  width: 30%; /* Ajuste a largura conforme necessário */
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.close {
+  color: #aaa;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Estilos para os itens do carrinho */
+.itens-do-carrinho {
+  max-height: 300px; /* Ajuste conforme necessário */
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #e1e1e1;
+  padding-bottom: 10px;
+}
+
+.cart-item img {
+  margin-right: 10px;
+  width: 50px; /* Ajuste o tamanho conforme necessário */
+}
+
+/* Estilos para o total do carrinho */
+.total-do-carrinho {
+  font-size: 1.2em;
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #e1e1e1;
+}
+
+/* Estilos para o botão de finalizar compra */
+.btn-finalizar-compra {
+  background-color: #008cba;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 1em;
+  border-radius: 4px;
+  width: 100%; /* Faz o botão esticar para a largura total do modal */
+  box-sizing: border-box; /* Garante que o padding não adicione largura ao botão */
+}
+
+.btn-finalizar-compra:hover {
+  background-color: #007ba7;
+}
+
+/* Estilo para o botão de remover item */
+.btn-remover-item {
+  background-color: #f44336;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8em;
+  border-radius: 4px;
+}
+
+.btn-remover-item:hover {
+  background-color: #d32f2f;
+}
