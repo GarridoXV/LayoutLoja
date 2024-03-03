@@ -1,0 +1,79 @@
+<link rel="stylesheet" href="/Public/css/slider-produto.css">
+<div class="product-slider">
+    <!-- Botão de navegação - Anterior -->
+    <button class="slider-btn seta-esquerda">‹</button>
+    
+    <!-- Grid de Produtos -->
+    <div class="product-grid">
+        <!-- Produto 1 -->
+        <div class="product-item">
+            <img src="/Public/imagens/brinco1.jpeg" alt="Produto 1">
+            <h3>Produto 1</h3>
+            <p>R$100,00</p>
+            <button class="cart-btn">Adicionar ao Carrinho</button>
+        </div>
+        <!-- Produto 2 -->
+        <div class="product-item">
+            <img src="/Public/imagens/brinco2.jpeg" alt="Produto 2">
+            <h3>Produto 2</h3>
+            <p>R$150,00</p>
+            <button class="cart-btn">Adicionar ao Carrinho</button>
+        </div>
+        <!-- Produto 3 -->
+        <div class="product-item">
+            <img src="/Public/imagens/brinco3.jpeg" alt="Produto 3">
+            <h3>Produto 3</h3>
+            <p>R$200,00</p>
+            <button class="cart-btn">Adicionar ao Carrinho</button>
+        </div>
+        <!-- Produto 4 -->
+        <div class="product-item">
+            <img src="/Public/imagens/brinco4.jpeg" alt="Produto 4">
+            <h3>Produto 4</h3>
+            <p>R$250,00</p>
+            <button class="cart-btn">Adicionar ao Carrinho</button>
+        </div>
+        <!-- Produto 5 -->
+        <div class="product-item">
+            <img src="/Public/imagens/brinco5.jpeg" alt="Produto 5">
+            <h3>Produto 5</h3>
+            <p>R$300,00</p>
+            <button class="cart-btn">Adicionar ao Carrinho</button>
+        </div>
+        <!-- Produtos adicionais -->
+        <!-- ... -->
+    </div>
+    
+    <!-- Botão de navegação - Próximo -->
+    <button class="slider-btn seta-direita">›</button>
+</div>
+
+<script>
+    // Coloque este script no final do seu arquivo HTML ou em um arquivo JavaScript externo
+    document.addEventListener('DOMContentLoaded', function() {
+    var grid = document.querySelector('.product-grid');
+    var btnNext = document.querySelector('.seta-direita');
+    var btnPrev = document.querySelector('.seta-esquerda');
+    var totalItems = grid.querySelectorAll('.product-item').length;
+    var itemWidth = grid.querySelector('.product-item').clientWidth;
+    var visibleItems = Math.floor(grid.offsetWidth / itemWidth);
+    var currentPosition = 0;
+
+    btnNext.addEventListener('click', function() {
+        // Não rola mais se o último item estiver visível
+        if (currentPosition < totalItems - visibleItems) {
+            currentPosition++;
+            grid.scrollLeft += itemWidth;
+        }
+    });
+
+    btnPrev.addEventListener('click', function() {
+        // Não rola mais se o primeiro item estiver visível
+        if (currentPosition > 0) {
+            currentPosition--;
+            grid.scrollLeft -= itemWidth;
+        }
+    });
+});
+
+    </script>

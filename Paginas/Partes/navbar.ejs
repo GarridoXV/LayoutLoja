@@ -1,0 +1,162 @@
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/public/css/navbar.css">
+<nav class="navbar">
+    <div class="logo">BrunaCovielo</div>
+    <ul class="nav-links">
+        <li><a href="/pulseiras">Pulseiras</a></li>
+        <li><a href="/aneis">Anéis</a></li>
+        <li><a href="/brincos">Brincos</a></li>
+        <li><a href="/novidades">Novidades</a></li>
+        <li><a href="/colecoes">Coleções</a></li>
+    </ul>
+    <div class="search-box">
+        <input type="text" placeholder="Buscar...">
+        <i class="fas fa-search"></i>
+    </div>
+    <div class="icons">
+        <i class="fas fa-shopping-cart" onclick="openCartModal()"></i>
+        <i class="fas fa-user" onclick="openModal()"></i>
+    </div>
+    <div class="hamburger" onclick="toggleHamburger()">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+    </div>
+</nav>
+
+<!-- Modal de Login -->
+<div id="loginModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <form id="loginForm">
+            <h2>Usuário</h2>
+            <input type="text" placeholder="Nome de usuário" required>
+            <h2>Senha</h2>
+            <input type="password" placeholder="Senha" required>
+            <button type="submit" class="btn-login">Entrar</button>
+            <span id="loginFeedback" style="display:none;"></span>
+            <p class="link-cadastro">Não possui um login? <span onclick="changeToRegister()">Cadastre-se agora</span></p>
+        </form>
+        <form id="registerForm" action="/cadastrar-usuario" method="post" style="display:none;">
+            <h2>Cadastro</h2>
+            <input type="text" placeholder="Nome" name="Nome" required maxlength="50">
+            <input type="text" placeholder="Sobrenome" name="Sobrenome" required maxlength="50">
+            <select name="Genero" required>
+                <option value="">Selecione o Gênero</option>
+                <option value="M">Masculino</option>
+                <option value="F">Feminino</option>
+                <option value="O">Outro</option>
+            </select>
+            <input type="text" placeholder="Endereço" name="Endereco" required maxlength="255">
+            <input type="text" placeholder="CEP" name="CEP" required pattern="\d{8}" title="Digite o CEP com 8 dígitos, sem hífen.">
+            <input type="text" placeholder="CPF" name="CPF" required pattern="\d{11}" title="Digite o CPF com 11 dígitos, sem pontos ou hífen.">
+            <input type="tel" placeholder="Telefone" name="Telefone" required pattern="\d{11}" title="Digite o telefone com 11 dígitos, incluindo o DDD, sem espaços ou hífen.">
+            <input type="email" placeholder="Email" name="Email" required maxlength="100">
+            
+            <!-- Campos de senha adicionados aqui -->
+            <input type="password" placeholder="Senha" name="Senha" required>
+            <input type="password" placeholder="Confirmar Senha" name="ConfirmarSenha" required>
+        
+            <button type="submit" class="btn-cadastro">Cadastrar</button>
+            <p class="link-login">Já tem uma conta? <span onclick="changeToLogin()">Entre aqui</span></p>
+        </form>
+        
+    </div>
+</div>
+
+<!-- Modal do Carrinho -->
+<div id="cartModal" class="modal-carrinho" style="display:none;">
+    <div class="modal-content">
+        <span class="close" onclick="closeCartModal()">&times;</span>
+        <h2>Carrinho de Compras</h2>
+        <div class="itens-do-carrinho">
+            <!-- Itens do carrinho serão inseridos aqui via JavaScript -->
+        </div>
+        <div class="total-do-carrinho">
+            <!-- Total será calculado e exibido aqui -->
+        </div>
+        <button class="btn-finalizar-compra" onclick="finalizePurchase()">Finalizar Compra</button>
+    </div>
+</div>
+
+<script>
+    // Funções globais para manipular os modais
+    function openModal() {
+        document.getElementById('loginModal').style.display = 'block';
+        changeToLogin(); // Abre sempre no formulário de login
+    }
+    
+    function closeModal() {
+        document.getElementById('loginModal').style.display = 'none';
+    }
+    
+    function openCartModal() {
+        document.getElementById('cartModal').style.display = 'block';
+    }
+    
+    function closeCartModal() {
+        document.getElementById('cartModal').style.display = 'none';
+    }
+    
+    // Funções para alternar entre formulários de login e registro
+    function changeToRegister() {
+        document.getElementById('loginForm').style.display = 'none';
+        document.getElementById('registerForm').style.display = 'block';
+    }
+    
+    function changeToLogin() {
+        document.getElementById('registerForm').style.display = 'none';
+        document.getElementById('loginForm').style.display = 'block';
+    }
+    
+    // Validação do formulário de registro
+    function validateRegistrationForm() {
+        var senha = document.querySelector('input[name="Senha"]').value;
+        var confirmarSenha = document.querySelector('input[name="ConfirmarSenha"]').value;
+        
+        if (senha !== confirmarSenha) {
+            alert('As senhas não correspondem.');
+            return false; // Impede a submissão do formulário
+        }
+        return true; // Permite a submissão do formulário
+    }
+    
+    // Lógica para processar o login
+    function processLoginForm(e) {
+        e.preventDefault(); // Impede a submissão tradicional do formulário
+    
+        var formData = new FormData(e.target); // Obtém os dados do formulário
+    
+        fetch('login.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Login bem-sucedido
+                window.location.href = '/Public/php/login.php0'; // Redirecione conforme necessário
+            } else {
+                // Login falhou
+                document.getElementById('loginFeedback').textContent = 'Usuário ou senha incorretos!';
+                document.getElementById('loginFeedback').style.display = 'block';
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao processar o login:', error);
+        });
+    }
+    
+    // Configura os ouvintes de eventos após o carregamento do DOM
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('loginForm').addEventListener('submit', processLoginForm);
+        document.querySelector('.fas.fa-user').addEventListener('click', openModal);
+        document.querySelectorAll('.close').forEach(element => {
+            element.addEventListener('click', closeModal);
+        });
+        document.querySelector('.link-cadastro span').addEventListener('click', changeToRegister);
+        document.querySelector('.link-login span').addEventListener('click', changeToLogin);
+        document.getElementById('registerForm').onsubmit = validateRegistrationForm;
+    });
+    </script>
+    

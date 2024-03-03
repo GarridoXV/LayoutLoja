@@ -1,0 +1,122 @@
+<link rel="stylesheet" href="/Public/css/produtos.css">
+
+<div class="grade-de-produtos">
+    <!-- Produto 1 -->
+    <div class="cartao-de-produto">
+      <img src="/Public/imagens/pulseira1.jpeg" alt="Produto 1" class="imagem-do-produto">
+      <div class="informacoes-do-produto">
+        <h3 class="titulo-do-produto">Produto 1</h3>
+        <p class="preco-do-produto">R$450,00</p>
+        <p class="parcelas-do-produto">6x sem juros de R$75,00</p>
+        <button class="botao-adicionar-carrinho">Adicionar ao Carrinho</button>
+      </div>
+    </div>
+
+    <!-- Produto 2 -->
+    <div class="cartao-de-produto">
+      <img src="/Public/imagens/pulseira2.jpeg" alt="Produto 2" class="imagem-do-produto">
+      <div class="informacoes-do-produto">
+        <h3 class="titulo-do-produto">Produto 2</h3>
+        <p class="preco-do-produto">R$500,00</p>
+        <p class="parcelas-do-produto">6x sem juros de R$83,33</p>
+        <button class="botao-adicionar-carrinho">Adicionar ao Carrinho</button>
+      </div>
+    </div>
+
+    <!-- Produto 3 -->
+    <div class="cartao-de-produto">
+      <img src="/Public/imagens/pulseira3.jpeg" alt="Produto 3" class="imagem-do-produto">
+      <div class="informacoes-do-produto">
+        <h3 class="titulo-do-produto">Produto 3</h3>
+        <p class="preco-do-produto">R$550,00</p>
+        <p class="parcelas-do-produto">6x sem juros de R$91,67</p>
+        <button class="botao-adicionar-carrinho">Adicionar ao Carrinho</button>
+      </div>
+    </div>
+    <div class="cartao-de-produto">
+        <img src="/Public/imagens/pulseira4.jpeg" alt="Produto 4" class="imagem-do-produto">
+        <div class="informacoes-do-produto">
+          <h3 class="titulo-do-produto">Produto 4</h3>
+          <p class="preco-do-produto">R$550,00</p>
+          <p class="parcelas-do-produto">6x sem juros de R$91,67</p>
+          <button class="botao-adicionar-carrinho">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+    <!-- Adicione mais produtos conforme necessário -->
+</div>
+<script>
+  let cart = []; // Armazenamento temporário para os itens do carrinho
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    var addToCartButtons = document.querySelectorAll('.botao-adicionar-carrinho');
+  
+    addToCartButtons.forEach(function(button, index) {
+      button.addEventListener('click', function() {
+        var productCard = this.closest('.cartao-de-produto');
+        var product = {
+          id: index,
+          image: productCard.querySelector('.imagem-do-produto').src,
+          title: productCard.querySelector('.titulo-do-produto').textContent,
+          price: parseFloat(productCard.querySelector('.preco-do-produto').textContent.replace('R$', '').replace(',', '.').trim())
+        };
+        addToCart(product);
+      });
+    });
+  
+    updateCartModal();
+  });
+  
+  function addToCart(product) {
+    let existingProduct = cart.find(p => p.id === product.id);
+    if (existingProduct) {
+      existingProduct.quantity++;
+    } else {
+      product.quantity = 1;
+      cart.push(product);
+    }
+    updateCartModal();
+  }
+  
+  function updateCartModal() {
+    let cartContent = document.querySelector('.modal-carrinho .modal-content');
+    let cartItemsContainer = document.querySelector('.itens-do-carrinho');
+    cartItemsContainer.innerHTML = ''; // Limpa os itens do carrinho
+    let total = 0;
+  
+    cart.forEach((item, index) => {
+      total += item.price * item.quantity;
+      cartItemsContainer.innerHTML += `
+        <div class="cart-item">
+          <img src="${item.image}" alt="${item.title}" style="width: 50px;">
+          <p>${item.title} - R$${item.price.toFixed(2)} x ${item.quantity}</p>
+          <button class="btn-remover-item" onclick="removeFromCart(${index})">Remover</button>
+        </div>
+      `;
+    });
+  
+    let totalContainer = document.querySelector('.total-do-carrinho');
+    totalContainer.innerHTML = `<p>Total: R$${total.toFixed(2)}</p>`;
+  }
+  
+  function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCartModal();
+  }
+  
+  function finalizePurchase() {
+    alert('Compra finalizada!');
+    cart = []; // Limpa o carrinho
+    updateCartModal();
+  }
+  
+  function openCartModal() {
+    document.getElementById('cartModal').style.display = 'block';
+    updateCartModal(); // Atualiza o modal toda vez que ele é aberto
+  }
+  
+  function closeCartModal() {
+    document.getElementById('cartModal').style.display = 'none';
+  }
+  
+  // Funções de manipulação do modal de login não modificadas
+  </script>
